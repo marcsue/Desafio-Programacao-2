@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import objetos.Departamento;
@@ -11,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import banco.DepartamentoDAO;
 import banco.FuncionarioDAO;
 
 @RestController
 public class Controller 
 {
 
+	@RequestMapping(value="/home", method = RequestMethod.GET)
+	public String homepage()
+	{
+		return "index";
+	}
+	
 	@RequestMapping(value="/departamento", method = RequestMethod.GET)
 	public boolean crud() throws ClassNotFoundException, SQLException
 	{
