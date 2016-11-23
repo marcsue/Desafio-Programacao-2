@@ -1,4 +1,7 @@
+banco/ConnectionFactory.class
 objetos/Departamento.class
+banco/DepartamentoDAO.class
 objetos/Funcionario.class
 services/Application.class
+banco/FuncionarioDAO.class
 services/Controller.class

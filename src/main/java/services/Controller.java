@@ -6,8 +6,10 @@ import java.util.List;
 import objetos.Departamento;
 import objetos.Funcionario;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import banco.FuncionarioDAO;
@@ -16,10 +18,10 @@ import banco.FuncionarioDAO;
 public class Controller 
 {
 
-	@RequestMapping(value="/home", method = RequestMethod.GET)
-	public String homepage()
-	{
-		return "index";
+	@RequestMapping("/greeting")
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "index";
 	}
 	
 	@RequestMapping(value="/departamento", method = RequestMethod.GET)
@@ -40,7 +42,7 @@ public class Controller
 		FuncionarioDAO dao = new FuncionarioDAO();
 		
 		Funcionario fun = new Funcionario(5, "joao", "lul", 21, 5, dpto);
-		Funcionario func = new Funcionario(5, "joaoJose", "lul", 21, 12, dpto);
+		Funcionario func = new Funcionario(5, "maria", "lul", 21, 12, dpto);
 		
 		
 		//dao.insereFuncionario(fun);
@@ -68,7 +70,5 @@ public class Controller
 		return dao.buscaFuncPorDep(5);
 	}
 	
-	
-
 	
 }
