@@ -40,16 +40,15 @@ public class DepartamentoDAO
 		}
 	}
 	
-	public boolean editarDepartamento(Departamento antigo, Departamento novo)
+	public boolean editarDepartamento(Departamento departamento)
 	{
 		try
 		{
-			String sql = "UPDATE Departamento SET id=?,nome=? WHERE id=?;";
+			String sql = "UPDATE Departamento SET nome=? WHERE id=?;";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
-			stmt.setInt(1,novo.getId());
-			stmt.setString(2, novo.getNome());
-			stmt.setInt(3, antigo.getId());
+			stmt.setString(1, departamento.getNome());
+			stmt.setInt(2, departamento.getId());
 			
 			stmt.execute();
 			stmt.close();
@@ -66,6 +65,9 @@ public class DepartamentoDAO
 	{
 		try
 		{
+			//QUANDO NAO TEM DPTO POR ALGUM MOTIVO O BANCO RETORNA ID == 0
+			if(buscaDptoId(idDepartamento).getId()!=0)
+			{
 				String sql = "DELETE FROM Departamento WHERE id=?;";
 				PreparedStatement stmt = connection.prepareStatement(sql);
 				
@@ -74,6 +76,9 @@ public class DepartamentoDAO
 				stmt.execute();
 				stmt.close();
 				return true;
+			}
+			else
+				return false;
 		}
 		catch (SQLException e)
 		{
@@ -82,7 +87,7 @@ public class DepartamentoDAO
 			
 	}
 	
-	public List<Departamento> buscaTodos() throws SQLException
+	public List<Departamento> buscaTodosDpto() throws SQLException
 	{
 		
 		try
@@ -115,34 +120,35 @@ public class DepartamentoDAO
 		catch (SQLException e)
 		{
 			return null;
-		}
-		
-		
-		
+		}	
 		
 	}
 	
-	public Departamento buscaDpto (int idDepartamento) throws SQLException
+	public Departamento buscaDptoId (int idDepartamento) throws SQLException
 	{
-		String sql = "SELECT * FROM Departamento WHERE id=?;" ;
-		
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		
-		stmt.setInt(1, idDepartamento);
-		
-		ResultSet resultado = stmt.executeQuery();
-		
-		Departamento dpto = new Departamento();
-		
-		while(resultado.next())
+		try
 		{
+			String sql = "SELECT * FROM Departamento WHERE id=?;" ;
 			
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			
-			dpto.setId(resultado.getInt("id"));
-			dpto.setNome(resultado.getString("nome"));
+			stmt.setInt(1, idDepartamento);
 			
+			ResultSet resultado = stmt.executeQuery();
 			
+			Departamento dpto = new Departamento();
+			
+			while(resultado.next())
+			{
+				dpto.setId(resultado.getInt("id"));
+				dpto.setNome(resultado.getString("nome"));			
+			}
+			
+			return dpto;
 		}
-		return dpto;
+		catch (SQLException e)
+		{
+			return null;
+		}
 	}
 }

@@ -94,7 +94,7 @@ public class FuncionarioDAO
 			
 	}
 	
-	public List<Funcionario> buscaTodos() throws SQLException, ClassNotFoundException
+	public List<Funcionario> buscaTodosFuncionario() throws SQLException, ClassNotFoundException
 	{
 		
 		try
@@ -119,7 +119,7 @@ public class FuncionarioDAO
 				func.setIdade(resultado.getInt("idade"));
 				func.setSalario(resultado.getFloat("salario"));
 			
-				departamento = dpto.buscaDpto(resultado.getInt("idDepartamento"));
+				departamento = dpto.buscaDptoId(resultado.getInt("idDepartamento"));
 				
 				func.setDepartamento(departamento);
 				
@@ -167,7 +167,7 @@ public class FuncionarioDAO
 				func.setIdade(resultado.getInt("idade"));
 				func.setSalario(resultado.getFloat("salario"));
 			
-				departamento = dpto.buscaDpto(resultado.getInt("idDepartamento"));
+				departamento = dpto.buscaDptoId(resultado.getInt("idDepartamento"));
 				
 				func.setDepartamento(departamento);
 				
@@ -191,7 +191,6 @@ public class FuncionarioDAO
 		try
 		{
 			DepartamentoDAO dpto = new DepartamentoDAO();
-			
 			Departamento departamento = new Departamento();
 			Funcionario func = new Funcionario();
 			
@@ -212,9 +211,10 @@ public class FuncionarioDAO
 				func.setIdade(resultado.getInt("idade"));
 				func.setSalario(resultado.getFloat("salario"));
 			
-				departamento = dpto.buscaDpto(resultado.getInt("idDepartamento"));
+				departamento = dpto.buscaDptoId(resultado.getInt("idDepartamento"));
 				
 				func.setDepartamento(departamento);
+				
 			}
 			
 			return func;
@@ -225,9 +225,48 @@ public class FuncionarioDAO
 		}
 	}
 	
+
+
+	public Funcionario buscaFuncId (int idFunc) throws ClassNotFoundException
+	{
+		
+		try
+		{
+		
+			Funcionario func = new Funcionario();
+			DepartamentoDAO dpto = new DepartamentoDAO();
+			Departamento departamento = new Departamento();
+			
+			String sql = "SELECT * FROM Funcionario WHERE id=?;" ;
+			
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			stmt.setInt(1, idFunc);
+			
+			ResultSet resultado = stmt.executeQuery();
+	
+			while(resultado.next())
+			{
+				func.setId(resultado.getInt("id"));
+				func.setNome(resultado.getString("nome"));
+				func.setCargo(resultado.getString("cargo"));
+				func.setIdade(resultado.getInt("idade"));
+				func.setSalario(resultado.getFloat("salario"));
+				
+				departamento = dpto.buscaDptoId(resultado.getInt("idDepartamento"));
+				
+				func.setDepartamento(departamento);
+				
+			}	
+			return func;
+		}
+		catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
 }
-
-
 
 
 
