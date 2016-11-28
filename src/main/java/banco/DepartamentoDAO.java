@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import objetos.Departamento;
 
 public class DepartamentoDAO 
@@ -23,6 +22,9 @@ public class DepartamentoDAO
 	{
 		try
 		{
+			if(departamento.getId()==0)
+				return false;
+			
 			String sql = "insert into Departamento(id,nome) values(?,?);";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
@@ -40,10 +42,18 @@ public class DepartamentoDAO
 		}
 	}
 	
-	public boolean editarDepartamento(Departamento departamento)
+	public boolean editarDepartamento(Departamento departamento) throws ClassNotFoundException
 	{
 		try
 		{
+			DepartamentoDAO dao = new DepartamentoDAO();
+			Departamento dpto = dao.buscaDptoId(departamento.getId());
+			
+			if(departamento.getId()==0 || dpto.getId()==0)
+				return false;
+			
+			
+			
 			String sql = "UPDATE Departamento SET nome=? WHERE id=?;";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
@@ -51,9 +61,11 @@ public class DepartamentoDAO
 			stmt.setInt(2, departamento.getId());
 			
 			stmt.execute();
+		
 			stmt.close();
 			
-			return true;
+		
+				return true;
 		}
 		catch (SQLException e)
 		{

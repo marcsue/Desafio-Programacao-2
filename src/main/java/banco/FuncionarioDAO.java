@@ -23,6 +23,9 @@ public class FuncionarioDAO
 	{
 		try
 		{
+			if(funcionario.getId()==0)
+				return false;
+			
 			String sql = "insert into Funcionario(id,nome,cargo,idade,salario,idDepartamento) values(?,?,?,?,?,?);";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
@@ -45,27 +48,32 @@ public class FuncionarioDAO
 		}
 	}
 	
-	public boolean editarFuncionario(Funcionario antigo, Funcionario novo)
+	public boolean editarFuncionario(Funcionario funcionario) throws ClassNotFoundException
 	{
 		try
 		{
-			String sql = "UPDATE Funcionario SET id=?,nome=?,cargo=?, idade=?,salario=?,idDepartamento=? WHERE id=?;";
+			FuncionarioDAO dao = new FuncionarioDAO();
+			Funcionario func = dao.buscaFuncId(funcionario.getId());
+			
+			if(funcionario.getId()==0 || func.getId()==0)
+				return false;
+			
+			
+			String sql = "UPDATE Funcionario SET nome=?,cargo=?, idade=?,salario=?,idDepartamento=? WHERE id=?;";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
-			stmt.setInt(1,novo.getId());
-			stmt.setString(2, novo.getNome());
-			stmt.setString(3,novo.getCargo());
-			stmt.setInt(4, novo.getIdade());
-			stmt.setFloat(5, novo.getSalario());
-			stmt.setInt(6, novo.getDepartamento().getId());
 			
-			
-			stmt.setInt(7, antigo.getId());
-			
+			stmt.setString(1, funcionario.getNome());
+			stmt.setString(2,funcionario.getCargo());
+			stmt.setInt(3, funcionario.getIdade());
+			stmt.setFloat(4, funcionario.getSalario());
+			stmt.setInt(5, funcionario.getDepartamento().getId());
+			stmt.setInt(6, funcionario.getId());
 			
 			stmt.execute();
 			stmt.close();
 			
+				
 			return true;
 		}
 		catch (SQLException e)
@@ -85,6 +93,7 @@ public class FuncionarioDAO
 				
 				stmt.execute();
 				stmt.close();
+				
 				return true;
 		}
 		catch (SQLException e)

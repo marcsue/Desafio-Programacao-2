@@ -1,32 +1,25 @@
 <!DOCTYPE HTML>
-<html ng-app="appDepartamento">
+<html ng-app="app">
 <head>
-<meta charset="UTF-8"/>
+	<base href="/" />
+	<meta charset="UTF-8"/>
     <title>Getting Started: Serving Web Content</title>
     
     <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular-route.js"></script>
     <script src="./js/app.js"></script>
+    <script src="./js/controller/departamentoController.js"></script>
+    <script src="./js/controller/funcionarioController.js"></script>
     
 </head>
-<body ng-controller="indexController">
+<body>
+	<a href="/departamento" > Departamento |</a>  
+    <a href="/funcionario"> Funcionario</a>
     
+    <div ng-view="ng-view">
+
     
+    </div>
     
-    <input type="text" ng-model="departamento.id"/> 
-    <input type="text" ng-model="departamento.nome"/>
-    
-    
-    <input type="button" value="Salvar" ng-click="addDpto() id="salvar"/>
- 	<input type="button" value="Salvar" ng-click="addDpto() id="editar"/>
-    <input type="button" value="Excluir" ng-click="deleteDpto()"/>
-    
-    <br> </br>
-    
-    
-    <div ng-repeat="dpto in departamentos">
-    	{{"id: "+ dpto.id + " nome: "+dpto.nome}}
-    	<input type="button" value="Alterar" ng-click="editarDpto(dpto)"/><br></br>
-	    
-    </div>     
 </body>
 </html>
