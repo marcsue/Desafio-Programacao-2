@@ -1,3 +1,34 @@
-<div>
-	aqui funcionario
- </div>
+<div ng-controller="funcionarioController">
+
+	<br>Id:      <input type="text" ng-model="funcionario.id"/> <br><br>
+    Nome:    <input type="text" ng-model="funcionario.nome"/><br><br>
+    Cargo:   <input type="text" ng-model="funcionario.cargo"/><br><br>
+    Idade:   <input type="text" ng-model="funcionario.idade"/><br><br>
+    Salario: <input type="text" ng-model="funcionario.salario"/><br><br>
+    Id Dpto: <input type="text" ng-model="funcionario.departamento.id"/><br><br>
+
+    
+    <input type="button" value="SalvarNovo" ng-click="addFun()" id="salvar"/>
+    <input type="button" value="Salvar Alterações" ng-click="updateFun()" id="update"/>
+    <input type="button" value="Buscar Por Dpto" ng-click="buscaFunDpto()" id="buscar"/>
+    <input type="button" value="Buscar Todos" ng-click="buscaFun()" id="buscar"/>
+    <input type="button" value="Limpar Campos" ng-click="limparCampos()" id="canelar"/><br><br>
+ 	
+   
+   <h3>Funcionários já inseridos no sistema</h3>
+    <div ng-repeat="func in funcionarios">
+    	{{"Id: "+ func.id + " | Nome: "+func.nome + " | Cargo: "+func.cargo + "| Idade: "+func.idade+" | Salario: "+func.salario + " | Id Dpto: " + func.departamento.id + " | Nome Dpto: " +func.departamento.nome }}
+    	<input type="button" value="Editar" ng-click="editarFun(func)" id="editar"/>
+    	<input type="button" value="Excluir" ng-click="deleteFun(func)" id="excluir"/><br>
+	   
+	</div>
+		<br><br><h3>Busca Por Dpto</h3>
+	    <div ng-repeat="func in funcsDpto">
+    	{{"Id: "+ func.id + " | Nome: "+func.nome + " | Cargo: "+func.cargo + "| Idade: "+func.idade+" | Salario: "+func.salario + " | Id Dpto: " + func.departamento.id + " | Nome Dpto: " +func.departamento.nome }}
+    	<input type="button" value="Editar" ng-click="editarFun(func)" id="editar"/>
+    	<input type="button" value="Excluir" ng-click="deleteFun(func)" id="excluir"/><br>
+	   
+	</div>
+    
+    
+</div>     

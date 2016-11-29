@@ -3,7 +3,7 @@ app.controller("departamentoController", function ($scope, $http){
 	$scope.departamentos =[];
 	$scope.departamento={};
 		
-	$scope.buscaDpto= function()
+	$scope.buscaDpto = function()
 	{
 		$http({method:'GET',url:'http://localhost:8080/buscaDpto'})
 		.then(function (response)
@@ -27,13 +27,15 @@ app.controller("departamentoController", function ($scope, $http){
 		.then(function (response)
 		{
 			
-			if (response.data)
+			if (response.data){
 				alert(" inserido com sucess");
+				$scope.limparCampos();
+			
+			}
+				
 				
 			else 
 				alert(" esse dpto ja existe");
-			
-			$scope.buscaDpto();
 			
 			console.log(response.data);
 			console.log(response.status);
@@ -49,18 +51,18 @@ app.controller("departamentoController", function ($scope, $http){
 		});
 	};
 	
+	
 	$scope.deleteDpto=function(departamento)
 	{
 		$http({method:'POST',url:'http://localhost:8080/deleteDpto',data:departamento})
 		.then(function (response)
-		{	
-			if (response.data)
-				alert(" removido com sucesso");
-				
-			else 
-				alert(" esse dpto nao pode ser removido");
-				
-			$scope.buscaDpto();
+		{			
+				if (response.data) 
+					alert(" removido com sucesso");
+					
+				else 
+					alert(" esse dpto nao pode ser removido pq temos funcioanrios nele");
+			
 			
 			console.log(response.status);
 			console.log(response.data);
@@ -87,7 +89,7 @@ app.controller("departamentoController", function ($scope, $http){
 		
 	};
 	
-	$scope.cancelarAlteracao=function()
+	$scope.limparCampos=function()
 	{
 		$scope.departamento= {};
 		
@@ -102,13 +104,16 @@ app.controller("departamentoController", function ($scope, $http){
 		{
 			
 			if (response.data)
+			{
 				alert(" alterado com sucesso");
+				$scope.limparCampos();
+			}
+				
 					
 			else 
 				alert(" esse dpto nao existe");
 			
-				
-			$scope.buscaDpto();	
+			
 			
 			console.log(response.status);
 			console.log(response.data);
@@ -121,6 +126,8 @@ app.controller("departamentoController", function ($scope, $http){
 			
 		});
 	};
+	
+	
 });
 
 

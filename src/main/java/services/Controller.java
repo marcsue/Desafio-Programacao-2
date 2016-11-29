@@ -73,16 +73,22 @@ public class Controller
 		return new FuncionarioDAO().buscaTodosFuncionario();
 	}
 	
-	@RequestMapping(value="/buscaFuncId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/buscaFunId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Funcionario buscaFuncId (@RequestBody Funcionario funcionario) throws ClassNotFoundException, SQLException
 	{
 		return new FuncionarioDAO().buscaFuncId(funcionario.getId());
 	}
 
-	@RequestMapping(value="/buscaFuncPorDpto", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/buscaFunPorDpto", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<Funcionario> buscaFuncPorDpto (@RequestBody Departamento departamento) throws ClassNotFoundException, SQLException
 	{
 		return new FuncionarioDAO().buscaFuncPorDep(departamento.getId());
+	}
+	
+	@RequestMapping(value="/editarFun", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public boolean  editarFunc (@RequestBody Funcionario funcionario) throws ClassNotFoundException, SQLException
+	{
+		return new FuncionarioDAO().editarFuncionario(funcionario);
 	}
 	
 }

@@ -51,11 +51,8 @@ public class FuncionarioDAO
 	public boolean editarFuncionario(Funcionario funcionario) throws ClassNotFoundException
 	{
 		try
-		{
-			FuncionarioDAO dao = new FuncionarioDAO();
-			Funcionario func = dao.buscaFuncId(funcionario.getId());
-			
-			if(funcionario.getId()==0 || func.getId()==0)
+		{		
+			if(funcionario.getId()==0)
 				return false;
 			
 			

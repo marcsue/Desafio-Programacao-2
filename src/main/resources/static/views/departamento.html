@@ -1,23 +1,24 @@
 <div ng-controller="departamentoController">
 
-	<input type="text" ng-model="departamento.id"/> 
-    <input type="text" ng-model="departamento.nome"/>
+	<br>Id:   <input type="text" ng-model="departamento.id"/><br><br> 
+    Nome:     <input type="text" ng-model="departamento.nome"/><br><br>
+    
     
     <input type="button" value="SalvarNovo" ng-click="addDpto()" id="salvar"/>
     <input type="button" value="Salvar Alterações" ng-click="update()" id="update"/>
-    <input type="button" value="Buscar Todos" ng-click="buscaDpto()" id="buscar"/>
-    <input type="button" value="Limpar Campos" ng-click="cancelarAlteracao()" id="canelar"/>
- 	
-    
- 
-    
-    
+   <input type="button" value="Buscar Todos" ng-click="buscaDpto()" id="buscar"/>
+    <input type="button" value="Limpar Campos" ng-click="limparCampos()" id="canelar"/><br><br>
+
+    <h3>Departamento já inseridos no sistema</h3>
     <div ng-repeat="dpto in departamentos">
-    	{{"id: "+ dpto.id + " nome: "+dpto.nome}}
+    	{{"Id: "+ dpto.id + " | Nome: "+dpto.nome+"  "}}
     	<input type="button" value="Editar" ng-click="editarDpto(dpto)" id="editar"/>
-    	<input type="button" value="Excluir" ng-click="deleteDpto(dpto)" id="excluir"/>
+    	<input type="button" value="Excluir" ng-click="deleteDpto(dpto)" id="excluir"/><br>
 	   
 	</div>
+    
+    
+    
     
     
 </div>     
