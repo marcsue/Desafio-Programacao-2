@@ -74,8 +74,7 @@ app.controller("departamentoController", function ($scope, $http){
 			console.log(response.data);
 			alert("erro ");
 			
-		});
-		
+		});	
 		
 	};
 	
